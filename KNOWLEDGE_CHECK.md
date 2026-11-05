@@ -12,9 +12,8 @@ Suppose your instance is running and has a public IP address, but `ssh` cannot c
 
 *Hint:* the lecture slides, and [class/07-ec2](https://github.com/ksiller/DS2022/blob/main/class/07-ec2/README.md), part [3. Launch an EC2 instance in the AWS Console + SSH](https://github.com/ksiller/DS2022/blob/main/class/07-ec2/README.md#3-launch-an-ec2-instance-in-the-aws-console--ssh-15-min) and [Troubleshooting](https://github.com/ksiller/DS2022/blob/main/class/07-ec2/README.md#troubleshooting).
 
-**Your answer:** Which path did you take in the console (service → page → tab)?
+**Your answer:** I would go to EC2 → Security Groups → select my instance’s security group → Inbound rules. This shows which connections are allowed, including SSH on port 22.
 
-...
 
 ## 2. Lambda: why didn't my function run?
 
@@ -24,9 +23,7 @@ Suppose you uploaded a new book to your bucket, but several minutes later MongoD
 
 *Hint:* the class demo [A Lambda function in the AWS Console](https://github.com/ksiller/DS2022/blob/main/demos/07-lambda/README.md), steps [5. Add the S3 trigger](https://github.com/ksiller/DS2022/blob/main/demos/07-lambda/README.md#5-add-the-s3-trigger) and [8. Preview: the same steps with Chalice](https://github.com/ksiller/DS2022/blob/main/demos/07-lambda/README.md#8-preview-the-same-steps-with-chalice).
 
-**Your answer:** Which path did you take in the console (service → page → tab)?
-
-...
+**Your answer:** I would go to Lambda → Functions → select my function → Configuration → Triggers. Here I can check if the S3 bucket is connected to start the function when a book is uploaded.
 
 ## 3. Lambda: where do I find the error?
 
@@ -36,9 +33,7 @@ Suppose the function did start, but MongoDB still has no document for the book. 
 
 *Hint:* [Part 2, Step 7](README.md#step-7-upload-a-new-book) in the README, and the class demo [A Lambda function in the AWS Console](https://github.com/ksiller/DS2022/blob/main/demos/07-lambda/README.md), step [7. Check the CloudWatch logs](https://github.com/ksiller/DS2022/blob/main/demos/07-lambda/README.md#7-check-the-cloudwatch-logs).
 
-**Your answer:** Which path did you take in the console (service → page → tab)?
-
-...
+**Your answer:** I would go to Lambda → Functions → select my function → Monitor → View CloudWatch logs, then open the log stream for that run. I would look for pg74.txt and check the error messages.
 
 ## 4. EC2 or Lambda: a backlog or new uploads?
 
@@ -52,6 +47,7 @@ For comparison, typical times in this lab:
 - **EC2** (`t3.micro`): about 20 seconds for all 100 books, plus a few minutes to start the instance and run the bootstrap. The instance costs money for every minute it runs, also while it waits.
 - **Lambda** (512 MB): about 2 seconds for one book, including about 1 second to start the function the first time (a cold start). The function runs, and costs, only while a book is analyzed.
 
-**Your answer:**
+**Your answer:** Case A: I would use EC2 because I can process all 5,000 books together and stop the instance when it finishes. Based on the lab times, this should be faster for a large batch.
 
-...
+Case B: I would use Lambda because it can run automatically whenever a new book is uploaded. It processes each book quickly, and I only pay when it runs.
+
